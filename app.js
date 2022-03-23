@@ -10,7 +10,7 @@ var corsOptions = {
   }
 
 app.use(cors(corsOptions))
-app.use("/public", express.static("public"));
+app.use(express.static("public"));
 app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies
 
@@ -48,6 +48,10 @@ app.get("/status/:name", (req, res) => {
     const content = fs.readFileSync(name);
     const json = JSON.parse(content);
     res.send(json);
+})
+
+app.get("/", (req, res) => {
+    res.send("Hello, world!")
 })
 
 app.listen(process.env.PORT || 3000,
