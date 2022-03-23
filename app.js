@@ -38,6 +38,11 @@ app.get("/models", (req, res) => {
     res.json({models: files})
 })
 
+app.delete("/models/:name", (req, res) => {
+    const model = req.params.name;
+    fs.unlinkSync(`models/${model}.json`)
+})
+
 app.get("/status/:name", (req, res) => {
     const name = `models/${req.params.name}.json`;
     const content = fs.readFileSync(name);

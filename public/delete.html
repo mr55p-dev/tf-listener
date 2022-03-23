@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="almond.min.css" />
+    <title>Delete models</title>
+</head>
+<body>
+    <h1>
+        Remove a model
+    </h1>
+    <h3>Available models</h3>
+    <ul id="models">
+
+    </ul>
+    <script>
+        const modelsdiv = document.getElementById('models')
+        window.onload = () => {
+            fetch(`https://tf-picar-listener.herokuapp.com/models`)
+            .then(res => res.json())
+            .then((json) => {
+                json.models.forEach((m) => {
+                    var node = document.createElement("button");
+                    node.textContent = m.replace(".json", "");
+                    node.onclick = (e) => {
+                        fetch(`https://tf-picar-listener.herokuapp.com/models/${e.target.textContent}`, {
+                            method: "DELETE"
+                        })
+                        .then(res => res.json())
+                    }
+                    modelsdiv.append(node);
+                })
+            })
+        }
+    </script>
+</body>
+</html>
