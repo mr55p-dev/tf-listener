@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tensorflow status</title>
+</head>
+<body>
+    <h1>Status</h1>
+    <input id="modelname" placeholder="Model name"/>
+    <button id="submitmodelname">Submit</button>
+    <ul id="resfield">
+
+    </ul>
+
+
+    <script>
+        const btn = document.getElementById('submitmodelname');
+        btn.onclick = (e) => {
+            e.preventDefault();
+            const name = document.getElementById('modelname').value
+            const para = document.getElementById('resfield')
+            console.log(`http://localhost:3000/status/${name}`)
+            fetch(`http://${window.location.hostname}/status/${name}`)
+            .then(res => res.json())
+            .then(json => {
+                para.textContent = '';
+                for (let [keys, values] of Object.entries(JSON.parse(json.data))) {
+                    var node = document.createElement("li");
+                    node.textContent = `${keys}: ${values}`;
+                    para.append(node);
+                }
+            })
+        }
+    </script>
+</body>
+</html>
