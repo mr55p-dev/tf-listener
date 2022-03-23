@@ -9,6 +9,11 @@
 </head>
 <body>
     <h1>Status</h1>
+    <h3>Available models</h3>
+    <ul id="models">
+
+    </ul>
+    <h3>Get status</h3>
     <input id="modelname" placeholder="Model name"/>
     <button id="submitmodelname">Submit</button>
     <ul id="resfield">
@@ -31,6 +36,23 @@
                     node.textContent = `${keys}: ${values}`;
                     para.append(node);
                 }
+            })
+        }
+        const modelsdiv = document.getElementById('models')
+        window.onload = () => {
+            fetch(`https://tf-picar-listener.herokuapp.com/models`)
+            .then(res => res.json())
+            .then((json) => {
+                json.models.forEach((m) => {
+                    var node = document.createElement("button");
+                    node.textContent = m.replace(".json", "");
+                    node.onclick = (e) => {
+                        var form = document.getElementById('modelname');
+                        console.log(e.target.textContent)
+                        form.value = e.target.textContent;
+                    }
+                    modelsdiv.append(node);
+                })
             })
         }
     </script>

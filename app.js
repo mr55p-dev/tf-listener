@@ -33,6 +33,11 @@ app.post("/tf/:name", function (req, res) {
     res.end();
 })
 
+app.get("/models", (req, res) => {
+    const files = fs.readdirSync("models");
+    res.json({models: files})
+})
+
 app.get("/status/:name", (req, res) => {
     const name = `models/${req.params.name}.json`;
     const content = fs.readFileSync(name);
