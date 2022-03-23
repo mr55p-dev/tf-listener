@@ -1,8 +1,11 @@
 const express = require('express');
+const cors = require('cors');
 const fs = require('fs');
 
 const app = express();
 
+
+app.use(cors())
 app.use("/public", express.static("public"));
 app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies
