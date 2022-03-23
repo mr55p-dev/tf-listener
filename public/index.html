@@ -21,8 +21,7 @@
             e.preventDefault();
             const name = document.getElementById('modelname').value
             const para = document.getElementById('resfield')
-            console.log(`http://localhost:3000/status/${name}`)
-            fetch(`http://${window.location.hostname}/status/${name}`)
+            fetch(`http://tf-picar-listener.herokuapp.com/status/${name}`)
             .then(res => res.json())
             .then(json => {
                 para.textContent = '';
