@@ -4,11 +4,17 @@ const fs = require('fs');
 
 const app = express();
 
+var corsOptions = {
+    origin: 'https://tf-picar-listener.herokuapp.com/',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  }
 
-app.use(cors())
+app.use(cors(corsOptions))
 app.use("/public", express.static("public"));
 app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies
+
+app.options('*', cors())
 
 // Endpoint for the json
 app.post("/tf/:name", function (req, res) {

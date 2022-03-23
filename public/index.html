@@ -22,7 +22,7 @@
             e.preventDefault();
             const name = document.getElementById('modelname').value
             const para = document.getElementById('resfield')
-            fetch(`http://tf-picar-listener.herokuapp.com/status/${name}`)
+            fetch(`https://tf-picar-listener.herokuapp.com/status/${name}`)
             .then(res => res.json())
             .then(json => {
                 para.textContent = '';
